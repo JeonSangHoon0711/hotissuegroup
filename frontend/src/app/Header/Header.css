@@ -1,0 +1,56 @@
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+    width: 100%;
+    
+}
+
+.logo {
+    flex: 1; /* 로고 영역 */
+    display: flex; /* 로고를 왼쪽 정렬 */
+    justify-content: flex-start;
+}
+
+.title {
+    flex: 1; /* "ㅇㄲㄹ" 텍스트 영역 */
+    display: flex; /* 텍스트를 중앙 정렬 */
+    justify-content: center;
+}
+
+nav {
+    flex: 1; /* 내비게이션 영역 */
+    display: flex; /* 링크들을 오른쪽 정렬 */
+    justify-content: flex-end;
+    align-items: center;
+}
+
+nav ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    padding: 0 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}

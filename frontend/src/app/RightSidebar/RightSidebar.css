@@ -1,0 +1,34 @@
+.right-sidebar {
+    width: 200px;
+    background-color: #003366;
+    padding: 20px;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.right-sidebar h3 {
+    color: #333;
+    background-color: #ccc;
+}
+
+.right-sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.right-sidebar ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.right-sidebar ul li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.right-sidebar .views {
+    display: block;
+    color: #777;
+    font-size: 12px;
+}

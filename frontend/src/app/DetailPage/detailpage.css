@@ -1,0 +1,91 @@
+.detailpagecontent {
+
+  background-color: #555; /* 배경 색상 */
+  padding: 20px; /* 내부 여백 */
+  border-radius: 8px; /* 모서리 둥글게 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  margin: 20px 0; /* 위아래 마진 */
+  width: 100%; /* 너비를 100%로 설정 */
+  box-sizing: border-box; /* 패딩과 테두리를 너비에 포함 */
+  margin-top: 0;
+  flex: 1; /* 나머지 공간을 모두 차지하도록 설정 */
+  align-items: center;
+  text-align: center;
+}
+
+.detailpagepost{
+  background-color: #999; /* 배경 색상 */
+  padding: 20px; /* 내부 여백 */
+  border-radius: 8px; /* 모서리 둥글게 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  margin: 20px 0; /* 위아래 마진 */
+  width: 100%; /* 너비를 100%로 설정 */
+  box-sizing: border-box; /* 패딩과 테두리를 너비에 포함 */
+  margin-top: 0;
+  flex: 1; /* 나머지 공간을 모두 차지하도록 설정 */
+  align-items: center;
+  text-align: center;
+
+}
+
+.detailpagepost h2, .detailpagepost p, .comment h2, .commentcontent p {
+  font-family: 'Arial', sans-serif; /* 폰트 변경 */
+  color: #fff; /* 글자 색상 */
+}
+
+.detailpagepost h2 {
+  font-size: 24px; /* 제목 폰트 크기 */
+  margin-bottom: 10px; /* 제목 아래 마진 */
+}
+
+.detailpagepost p, .commentcontent p {
+  font-size: 16px; /* 내용 폰트 크기 */
+  line-height: 1.5; /* 줄간격 */
+}
+
+/* 링크 스타일 */
+a {
+  color: #4A90E2; /* 링크 색상 */
+  text-decoration: none; /* 밑줄 제거 */
+}
+
+a:hover {
+  text-decoration: underline; /* 마우스 오버 시 밑줄 */
+}
+
+/* 유튜브 플레이어 스타일 */
+.youtubePlayer {
+  margin-top: 20px; /* 유튜브 플레이어 위 마진 */
+  border-radius: 8px; /* 모서리 둥글게 */
+  overflow: hidden; /* 모서리를 둥글게 한 경계 밖 내용 숨김 */
+}
+
+/* 댓글 섹션 스타일 */
+.comment {
+  background-color: #999; /* 배경 색상 */
+  padding: 15px; /* 내부 여백 */
+  border-radius: 8px; /* 모서리 둥글게 */
+  margin-top: 20px; /* 위 마진 */
+  text-align: left; /* 수정 */
+}
+
+.comment h2 {
+  color: #FFD700; /* 제목 색상 */
+  margin-bottom: 15px; /* 제목 아래 마진 */
+}
+
+.commentcontent p {
+  background-color: #777; /* 배경 색상 */
+  padding: 10px; /* 내부 여백 */
+  border-radius: 4px; /* 모서리 둥글게 */
+  margin-bottom: 10px; /* 아래 마진 */
+}
+
+
+.posttitle{
+  background-color: #999;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 20px;
+}
