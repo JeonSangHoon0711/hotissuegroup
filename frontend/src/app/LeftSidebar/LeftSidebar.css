@@ -2,7 +2,7 @@
   width: 200px;
   background-color: #003366; /* 변경 없음 */
   padding: 20px;
-  height: 100vh;
+  height: 120vh;
   box-sizing: border-box; /* 변경 없음 */
 }
 
@@ -46,7 +46,7 @@
   padding: 15px; /* 변경 없음 */
 }
 
-.left-sidebar .chart-box h3 {
+.left-sidebar .chart-box h4 {
   color: #fff; /* 변경 없음 */
   margin: 0 0 10px 0; /* 변경 없음 */
 }
@@ -58,12 +58,44 @@
 }
 
 .left-sidebar .chart-box ul li {
-  padding: 8px;
+  padding: 0px;
   margin-bottom: 10px; /* 변경 없음 */
   border-bottom: 1px solid #ccc;
   color: #fff; /* 변경 없음 */
+  font-size: 13px;
 }
 
 .left-sidebar .chart-box ul li:last-child {
+  margin-bottom: 0; /* 변경 없음 */
+}
+
+/* 새로운 music-box 스타일 추가 */
+.left-sidebar .music-box {
+  background-color: #666; /* 변경 없음 */
+  border-radius: 5px; /* 변경 없음 */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 변경 없음 */
+  padding: 15px; /* 변경 없음 */
+}
+
+.left-sidebar .music-box h4 {
+  color: #fff; /* 변경 없음 */
+  margin: 0 0 10px 0; /* 변경 없음 */
+}
+
+.left-sidebar .music-box ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0; /* 변경 없음 */
+}
+
+.left-sidebar .music-box ul li {
+  padding: 0px;
+  margin-bottom: 10px; /* 변경 없음 */
+  border-bottom: 1px solid #ccc;
+  color: #fff; /* 변경 없음 */
+  font-size: 13px;
+}
+
+.left-sidebar .music-box ul li:last-child {
   margin-bottom: 0; /* 변경 없음 */
 }

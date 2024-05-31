@@ -1,19 +1,55 @@
-import React from 'react';
+"use client"
+import React, { useEffect, useState } from 'react';
 import './LeftSidebar.css';
 import Link from 'next/link';
 
+// 실시간 검색어 타입 정의
+interface SearchItem {
+  sid: number;
+  title: string;
+  date: string;
+}
+
+// MusicChartItem 타입 정의
+interface MusicChartItem {
+  title: string;
+  artist: string;
+  date: Date;
+}
+
 function LeftSidebar() {
-  const musicChart = [
-    { id: 1, song: '노래 1', artist: '아티스트 1' },
-    { id: 2, song: '노래 2', artist: '아티스트 2' },
-    { id: 3, song: '노래 3', artist: '아티스트 3' },
-    // 더 많은 노래와 아티스트 정보를 추가할 수 있습니다.
-  ];
-  const searchRank = [
-    { id: 1, search: '축구순위'},
-    { id: 2, search: '코로나 확진자'},
-    { id: 3, search: '날씨'},
-  ];
+  // 실시간 검색어와 음악 차트의 타입을 명시적으로 지정
+  const [searchRank, setSearchRank] = useState<SearchItem[]>([]);
+  const [musicChart, setMusicChart] = useState<MusicChartItem[]>([]);
+
+  useEffect(() => {
+    // API 요청을 통해 실시간 검색어 데이터를 받아오는 함수
+    const fetchSearchData = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/search/latest');
+        const data: SearchItem[] = await response.json();
+        // 상위 10개 항목만 설정
+        setSearchRank(data.slice(0, 10));
+      } catch (error) {
+        console.error('Error fetching search data:', error);
+      }
+    };
+
+    // API 요청을 통해 음악 데이터를 받아오는 함수
+    const fetchMusicData = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/music/latest');
+        const data: MusicChartItem[] = await response.json();
+        // 상위 10개 항목만 설정
+        setMusicChart(data.slice(0, 10));
+      } catch (error) {
+        console.error('Error fetching music data:', error);
+      }
+    };
+
+    fetchSearchData();
+    fetchMusicData();
+  }, []);
 
   return (
     <div className="left-sidebar">
@@ -22,22 +58,22 @@ function LeftSidebar() {
       </div>
       <br></br>
       <div className="chart-box">
-        <h3>실시간 검색 순위</h3>
+        <h4>실시간 검색 순위</h4>
         <ul>
           {searchRank.map((item, index) => (
             <li key={index}>
-              <strong>{item.search}</strong>
+              <strong>{item.title}</strong>
             </li>
           ))}
         </ul>
       </div>
       <br></br>
-      <div className="chart-box">
-        <h3>음원 차트</h3>
+      <div className="music-box">
+        <h4>음원 차트</h4>
         <ul>
           {musicChart.map((item, index) => (
             <li key={index}>
-              <strong>{item.song}</strong> - {item.artist}
+              <strong>{item.title}</strong> - {item.artist}
             </li>
           ))}
         </ul>
