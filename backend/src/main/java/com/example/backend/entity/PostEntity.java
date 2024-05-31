@@ -26,7 +26,7 @@ public class PostEntity {
     @JoinColumn(name = "uid", nullable = false)
     private UserEntity user;
 
-    @Column(name = "title", length = 45)
+    @Column(name = "title", length = 255)
     private String title;
 
     @Column(name = "content", columnDefinition = "LONGTEXT")
@@ -42,8 +42,11 @@ public class PostEntity {
     @Column(name = "likecount")
     private Integer likecount;
 
-    @Column(name = "category", length = 45)
+    @Column(name = "category", length = 255)
     private String category;
+
+    @Column(name = "link")
+    private String link;
 
     // Getters and Setters
 
@@ -110,4 +113,7 @@ public class PostEntity {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    public void getLink(String link) {this.link = link; }
+    public String getlink(){return link;}
 }

@@ -2,10 +2,10 @@ package com.example.backend.controller;
 
 import com.example.backend.entity.UserEntity;
 import com.example.backend.repository.UserRepository;
+import com.example.backend.service.UserService; // UserService를 import
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,11 +16,25 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    // 모든 테스트 엔티티 조회
+    @Autowired
+    private UserService userService; // UserService 주입
+
+    // 모든 사용자 엔티티 조회
     @GetMapping
-    public List<UserEntity> getAllTests() {
-        System.out.println("test");
-        System.out.println("222222222");
+    public List<UserEntity> getAllUsers() {
         return userRepository.findAll();
     }
+
+    // 회원가입 엔드포인트 추가
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@RequestBody UserEntity user) {
+        try {
+            UserEntity registeredUser = userService.registerUser(user);
+            return ResponseEntity.ok(registeredUser);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
+
+
