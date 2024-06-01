@@ -5,6 +5,8 @@ import LeftSidebar from './LeftSidebar/page';
 import RightSidebar from './RightSidebar/page';
 import Footer from './Footer/page';
 import './app.css';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const App = () => {
   return (
@@ -27,6 +29,7 @@ const App = () => {
   <Footer/>
   asdf
   </div>
+  
 
   );
 };

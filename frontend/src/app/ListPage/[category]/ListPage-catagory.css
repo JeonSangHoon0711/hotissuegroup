@@ -17,7 +17,7 @@
 
 .listpagecontent li {
   background-color: #ffffff; /* 리스트 아이템 배경 색상 */
-  padding: 1px; /* 리스트 아이템 내부 여백 */
+  padding: 15px; /* 리스트 아이템 내부 여백 */
   margin-bottom: 10px; /* 리스트 아이템 간 마진 */
   border-radius: 5px; /* 리스트 아이템 모서리 둥글게 */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* 리스트 아이템 그림자 효과 */
