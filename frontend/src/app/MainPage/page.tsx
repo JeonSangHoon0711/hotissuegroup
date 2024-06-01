@@ -53,6 +53,10 @@ function MainPage() {
   const handleBoardClick = (category: string) => {
     router.push(`/ListPage/${category}`); // 클릭 시 해당 category로 라우팅합니다.
   };
+    // 클릭 이벤트 핸들러 함수
+    const handleTitleClick = (pid: String) => {
+      router.push(`/DetailPage/${pid}`); // 클릭 시 해당 category로 라우팅합니다.
+    };
 
   return (
     <div className="App">
@@ -67,7 +71,7 @@ function MainPage() {
                 <div className="sub-board">
                   <div className="sub-board-content">
                     {posts[board.title]?.map((post) => (
-                      <div key={post.pid}>{post.title}<br/></div>
+                      <div key={post.pid}><a onClick={() => handleTitleClick(post.pid)}>{post.title}</a><br/></div>
                     ))}
                   </div>
                 </div>
