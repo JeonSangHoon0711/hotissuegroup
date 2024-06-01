@@ -42,7 +42,7 @@ public class PostEntity {
     @Column(name = "likecount")
     private Integer likecount;
 
-    @Column(name = "category", length = 255)
+    @Column(name = "category")
     private String category;
 
     @Column(name = "link")
