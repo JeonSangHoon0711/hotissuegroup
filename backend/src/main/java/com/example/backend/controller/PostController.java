@@ -25,72 +25,72 @@ public class PostController {
     }
     @GetMapping("/naver-economy")
     public List<PostEntity> getNaverEconomyPosts() {
-        return postRepository.findByCategory("naver-economy", Sort.by(Sort.Direction.DESC, "date"));
+        return postRepository.findByCategory("naver-economy", Sort.by(Sort.Direction.DESC, "pid"));
     }
 
     @GetMapping("/naver-game")
     public List<PostEntity> getNaverGamePosts() {
-        return postRepository.findByCategory("naver-game", Sort.by(Sort.Direction.DESC, "date"));
+        return postRepository.findByCategory("naver-game", Sort.by(Sort.Direction.DESC, "pid"));
     }
 
     @GetMapping("/naver-sports")
     public List<PostEntity> getNaverSportsPosts() {
-        return postRepository.findByCategory("naver-sports", Sort.by(Sort.Direction.DESC, "date"));
+        return postRepository.findByCategory("naver-sports", Sort.by(Sort.Direction.DESC, "pid"));
     }
 
     @GetMapping("/naver-politics")
     public List<PostEntity> getNaverPoliticsPosts() {
-        return postRepository.findByCategory("naver-politics", Sort.by(Sort.Direction.DESC, "date"));
+        return postRepository.findByCategory("naver-politics", Sort.by(Sort.Direction.DESC, "pid"));
     }
 
     @GetMapping("/youtube-shorts")
     public List<PostEntity> getYoutubeShortsPosts() {
-        return postRepository.findByCategory("youtube-shorts", Sort.by(Sort.Direction.DESC, "date"));
+        return postRepository.findByCategory("youtube-shorts", Sort.by(Sort.Direction.DESC, "pid"));
     }
 
     @GetMapping("/youtube-long")
     public List<PostEntity> getYoutubeLongPosts() {
-        return postRepository.findByCategory("youtube-long", Sort.by(Sort.Direction.DESC, "date"));
+        return postRepository.findByCategory("youtube-long", Sort.by(Sort.Direction.DESC, "pid"));
     }
     @GetMapping("/naver-economy/latest")
     public Page<PostEntity> getLatestNaverEconomyPosts(@RequestParam(defaultValue = "0") int page,
                                                        @RequestParam(defaultValue = "5") int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "date"));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "pid"));
         return postRepository.findByCategory("naver-economy", pageable);
     }
 
     @GetMapping("/naver-game/latest")
     public Page<PostEntity> getLatestNaverGamePosts(@RequestParam(defaultValue = "0") int page,
                                                     @RequestParam(defaultValue = "5") int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "date"));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "pid"));
         return postRepository.findByCategory("naver-game", pageable);
     }
 
     @GetMapping("/naver-sports/latest")
     public Page<PostEntity> getLatestNaverSportsPosts(@RequestParam(defaultValue = "0") int page,
                                                       @RequestParam(defaultValue = "5") int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "date"));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "pid"));
         return postRepository.findByCategory("naver-sports", pageable);
     }
 
     @GetMapping("/naver-politics/latest")
     public Page<PostEntity> getLatestNaverPoliticsPosts(@RequestParam(defaultValue = "0") int page,
                                                         @RequestParam(defaultValue = "5") int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "date"));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "pid"));
         return postRepository.findByCategory("naver-politics", pageable);
     }
 
     @GetMapping("/youtube-shorts/latest")
     public Page<PostEntity> getLatestYoutubeShortsPosts(@RequestParam(defaultValue = "0") int page,
                                                         @RequestParam(defaultValue = "5") int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "date"));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "pid"));
         return postRepository.findByCategory("youtube-shorts", pageable);
     }
 
     @GetMapping("/youtube-long/latest")
     public Page<PostEntity> getLatestYoutubeLongPosts(@RequestParam(defaultValue = "0") int page,
                                                       @RequestParam(defaultValue = "5") int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "date"));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "pid"));
         return postRepository.findByCategory("youtube-long", pageable);
     }
 
@@ -184,6 +184,11 @@ public class PostController {
                 PageRequest.of(page - 1, 5, Sort.by(Sort.Direction.DESC, "date"))
         );
         return postPage.getContent();
+    }
+
+    @GetMapping("/{pid}")
+    public PostEntity getPost(@PathVariable int pid) {
+        return postRepository.findById(pid).orElse(null);
     }
 
 
