@@ -5,6 +5,7 @@ import com.example.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -17,9 +18,13 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
-    @GetMapping("/all") // GET 요청을 "/api/music/all" 경로로 받습니다.
-    public List<UserEntity> getAllMusic() {
-        return userRepository.findAll(); // 모든 음악 정보를 반환합니다.
+
+    // 비밀번호 암호화를 위한 BCryptPasswordEncoder 인스턴스 생성
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    @GetMapping("/all") // GET 요청을 "/api/users/all" 경로로 받습니다.
+    public List<UserEntity> getAllUsers() {
+        return userRepository.findAll(); // 모든 사용자 정보를 반환합니다.
     }
 
     @PostMapping("/register")
@@ -32,10 +37,15 @@ public class UserController {
             return new ResponseEntity<>("ID is already taken", HttpStatus.CONFLICT);
         }
 
+        // 비밀번호 암호화
+        String encodedPassword = passwordEncoder.encode(user.getPw());
+        user.setPw(encodedPassword);
+
         // 사용자 정보 저장
         userRepository.save(user);
         return new ResponseEntity<>("User registered successfully", HttpStatus.CREATED);
     }
+
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> loginUser(@RequestBody UserEntity user) {
         // 사용자 인증
@@ -44,7 +54,8 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        if (!foundUser.getPw().equals(user.getPw())) {
+        // 비밀번호 검증
+        if (!passwordEncoder.matches(user.getPw(), foundUser.getPw())) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
@@ -58,5 +69,3 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
-
-
