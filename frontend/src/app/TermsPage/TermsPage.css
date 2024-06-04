@@ -1,0 +1,36 @@
+/* TermsPage.module.css */
+.termsContent {
+  padding: 50px;
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.checkBox {
+  margin-bottom: 10px;
+}
+
+.box {
+  border: 1px solid #ccc;
+  padding: 20px;
+  text-align: center; /* 텍스트를 가운데 정렬합니다. */
+max-width: 600px; /* 내용의 최대 너비를 설정하여 줄바꿈 효과를 줍니다. */
+margin: 0 auto; /* 상자를 가운데 정렬합니다. */
+white-space: pre-line; /* 공백과 줄바꿈을 유지합니다. */
+
+}
+
+.nextBox {
+  text-align: center;
+  margin-top: 30px;
+}
+/* termspage.css */
+
+.nextButton.disabled {
+  pointer-events: none;
+  color: #ccc;
+}
+

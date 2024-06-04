@@ -27,28 +27,50 @@ const RegisterPage: React.FC = () => {
   };
 
   // 폼 제출 처리
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // 기본 제출 동작 방지
-    // 비밀번호 확인
-    if (password !== passwordConfirmation) {
-      alert('비밀번호가 일치하지 않습니다.');
-      return;
+// 폼 제출 처리
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault(); // 기본 제출 동작 방지
+  // 비밀번호 확인
+  if (password !== passwordConfirmation) {
+    alert('비밀번호가 일치하지 않습니다.');
+    return;
+  }
+  // API 요청
+  try {
+    const response = await axios.post('http://localhost:8080/api/users/register', {
+      name,
+      id: userId, // id 필드 추가
+      pw: password, // password 대신 pw 사용
+    });
+    console.log(response);
+    alert('회원가입 성공');
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // AxiosError의 경우
+      if (error.response && error.response.status === 409) {
+        const errorMessage = error.response.data;
+        if (errorMessage.includes("Name is already taken")) {
+          alert('이미 사용 중인 이름입니다.');
+        } else if (errorMessage.includes("ID is already taken")) {
+          alert('이미 사용 중인 아이디입니다.');
+        } else {
+          alert('회원가입 실패: ' + errorMessage);
+        }
+      } else {
+        console.error(error);
+        alert('회원가입 실패');
+      }
+    } else if (error instanceof Error) {
+      // 일반적인 Error 인스턴스인 경우
+      console.error(error.message);
+      alert('회원가입 실패: ' + error.message);
+    } else {
+      // 그 외 알 수 없는 오류의 경우
+      console.error('알 수 없는 오류', error);
+      alert('알 수 없는 오류로 회원가입 실패');
     }
-    // API 요청
-    try {
-      const response = await axios.post('http://localhost:8080/api/users/register', {
-        name,
-        id: userId, // id 필드 추가
-        email,
-        pw: password, // password 대신 pw 사용
-      });
-      console.log(response.data);
-      alert('회원가입 성공');
-    } catch (error) {
-      console.error(error);
-      alert('회원가입 실패');
-    }
-  };
+  }
+};
 
   return (
     <div className="App">
@@ -67,12 +89,6 @@ const RegisterPage: React.FC = () => {
             <div className='formRow'>
               <label htmlFor="userId">아이디  </label>
               <input type="text" id="userId" value={userId} onChange={handleInputChange} />
-            </div>
-            <br/>
-            {/* 이메일 입력 필드 */}
-            <div className='formRow'>
-              <label htmlFor="email">이메일  </label>
-              <input type="email" id="email" className='inputField' value={email} onChange={handleInputChange} />
             </div>
             <br/>
             {/* 비밀번호 입력 필드 */}
