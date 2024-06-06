@@ -1,6 +1,14 @@
 package com.example.backend.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 import java.sql.Date;
 
 @Entity
@@ -11,22 +19,22 @@ public class CommentsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cid;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pid", nullable = false)
     private PostEntity post;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "uid", nullable = false)
     private UserEntity user;
 
-    @Column(name = "date")
-    @Temporal(TemporalType.DATE)
-    private Date date;
-
-    @Column(name = "content", columnDefinition = "LONGTEXT")
+    @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
+    @Column(name = "date")
+    private Date date;
+
     // Getters and Setters
+
     public int getCid() {
         return cid;
     }
@@ -51,19 +59,19 @@ public class CommentsEntity {
         this.user = user;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

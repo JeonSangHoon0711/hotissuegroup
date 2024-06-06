@@ -1,16 +1,24 @@
 package com.example.backend.controller;
 
 
+import com.example.backend.dto.PostsRequestDto;
 import com.example.backend.entity.PostEntity;
+import com.example.backend.entity.UserEntity;
 import com.example.backend.repository.PostRepository;
+import com.example.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -18,7 +26,8 @@ public class PostController {
 
     @Autowired
     private PostRepository postRepository;
-
+    @Autowired
+    private UserRepository userRepository;
     @GetMapping
     public List<PostEntity> getAllPosts() {
         return postRepository.findAll();
@@ -181,14 +190,86 @@ public class PostController {
     public List<PostEntity> getNaverGamePage(@PathVariable int page) {
         Page<PostEntity> postPage = postRepository.findByCategory(
                 "naver-game",
-                PageRequest.of(page - 1, 5, Sort.by(Sort.Direction.DESC, "date"))
+                PageRequest.of(page - 1, 5, Sort.by(Sort.Direction.DESC, "pid"))
+        );
+        return postPage.getContent();
+    }
+    @GetMapping("/community/{page}")
+    public List<PostEntity> getCommunityePage(@PathVariable int page) {
+        Page<PostEntity> postPage = postRepository.findByCategory(
+                "community",
+                PageRequest.of(page - 1, 5, Sort.by(Sort.Direction.DESC, "pid"))
         );
         return postPage.getContent();
     }
 
+
+
     @GetMapping("/{pid}")
     public PostEntity getPost(@PathVariable int pid) {
         return postRepository.findById(pid).orElse(null);
+    }
+
+    @GetMapping("/search/{title}/{page}")
+    public List<PostEntity> searchPosts(@PathVariable String title, @PathVariable int page) {
+        Page<PostEntity> postPage = postRepository.findByTitleContaining(
+                title,
+                PageRequest.of(page - 1, 5, Sort.by(Sort.Direction.DESC, "pid"))
+        );
+        return postPage.getContent();
+    }
+
+    @PostMapping("/write")
+    public ResponseEntity<?> createPost(@RequestBody PostsRequestDto postRequest) {
+        Optional<UserEntity> userOptional = userRepository.findById(postRequest.getUid());
+
+        if (!userOptional.isPresent()) {
+            return ResponseEntity.badRequest().body("User not found");
+        }
+
+        UserEntity user = userOptional.get();
+
+        PostEntity post = new PostEntity();
+        post.setUser(user);
+        post.setTitle(postRequest.getTitle());
+        post.setContent(postRequest.getContent());
+
+        // String으로 된 날짜를 Date 객체로 변환
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+        LocalDateTime localDateTime = LocalDateTime.parse(postRequest.getDate(), formatter);
+        Date date = Date.valueOf(localDateTime.toLocalDate());
+
+        post.setDate(date);
+        post.setCategory(postRequest.getCategory());
+
+        postRepository.save(post);
+
+        return ResponseEntity.ok("Post created successfully");
+    }
+
+    ///search postmapping
+
+    public static class SearchRequest {
+        private String title;
+        private int page;
+
+        public String getTitle() {
+            return title;
+        }
+
+        public int getPage() {
+            return page;
+        }
+
+        // getter와 setter 생략
+    }
+    @PostMapping("/search")
+    public List<PostEntity> searchPosts(@RequestBody SearchRequest searchRequest) {
+        Page<PostEntity> postPage = postRepository.findByTitleContaining(
+                searchRequest.getTitle(),
+                PageRequest.of(searchRequest.getPage() - 1, 5, Sort.by(Sort.Direction.DESC, "pid"))
+        );
+        return postPage.getContent();
     }
 
 

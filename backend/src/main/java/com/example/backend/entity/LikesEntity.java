@@ -23,5 +23,36 @@ public class LikesEntity {
     @JoinColumn(name = "uid", nullable = false)
     private UserEntity user;
 
+    public Date getLikedate() {
+        return likedate;
+    }
+
+    public int getLid() {
+        return lid;
+    }
+
+    public PostEntity getPost() {
+        return post;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setLid(int lid) {
+        this.lid = lid;
+    }
+
+    public void setLikedate(Date likedate) {
+        this.likedate = likedate;
+    }
+
+    public void setPost(PostEntity post) {
+        this.post = post;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
     // Getters and Setters
 }
